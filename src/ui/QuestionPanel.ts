@@ -32,7 +32,7 @@ export class QuestionPanel implements Screen {
     this.ok = el('div', 'q-mark ok', '✓', foot);
     this.no = el('div', 'q-mark no', '✗', foot);
     this.score = el('div', 'q-hint', '', wrap);
-    el('div', 'q-hint', 'A veya B (ya da 1 / 2) tuşuyla cevapla. Doğru: −3 sn · Yanlış: +3 sn', wrap);
+    el('div', 'q-hint', 'A veya B (ya da 1 / 2) tuşuyla cevapla. Doğru: −2 sn · Yanlış: +2 sn', wrap);
     this.hide();
   }
 

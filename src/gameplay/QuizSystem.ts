@@ -3,8 +3,8 @@ import { mulberry32 } from '../physics/math';
 
 /** Time effect of quiz answers (design choice). */
 export const QUIZ_RULES = {
-  correctBonus: 3,
-  wrongPenalty: 3,
+  correctBonus: 2,
+  wrongPenalty: 2,
   /** Seconds the ✓/✗ feedback stays on screen before the next question. */
   feedbackTime: 1.4,
 };

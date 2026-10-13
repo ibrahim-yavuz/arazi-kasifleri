@@ -15,6 +15,7 @@ npm test           # automated tests (vitest: gameplay, physics, AI race, room s
 npm run validate   # physics validation; writes docs/PHYSICS_RESULTS.md
 npm run check:ai   # AI drives every car on every route; reports times and respawns
 npm run check:keyboard  # keyboard-style (on/off input) bot: spins, off-road time, resets
+npm run check:balance   # pro and average bot on every road: per-fork net times
 npm run check:launch    # start equaliser: back-row car vs front-row car (should end ≈ 0 m)
 ```
 
@@ -93,6 +94,7 @@ Extra URLs:
 | A / B or 1 / 2 | Answer the end-of-race questions |
 | R | Return the car to the last checkpoint |
 | C | Camera: close chase / far chase / bonnet |
+| M | Minimap: around the car (heading up) / whole course |
 | Esc | Pause menu (online the race keeps running) |
 | Enter | Confirm in menus |
 | F3 / F4 | Physics debug lines / tuning panel (dev only) |
@@ -113,21 +115,25 @@ again before the next part of the course:
 
 You can pick a different road at each fork (for example Cesaret, then Bilgi).
 
-- **HIZ**: the easiest road. About 770 m per fork, 28 m wide, smooth flowing curves,
-  fenced, one bridge; almost no hourglasses, a couple of turbos. Safe but slow overall.
-- **BİLGİ**: about 580 m per fork of winding, hilly road (20 m wide) with a bridge and
-  **?** signs (five in total). The race never stops: after the finish you get one question
-  per **?** collected (correct −3 s, wrong +3 s).
-- **CESARET**: the hardest road but the best time. About 535 m per fork, 14 m wide, the
-  most direct line: tight bends, a bridge, a kicker ramp, boulders, and on fork 2 a sand
-  canyon and mud. Five hourglasses per fork on the driving line (up to −30 s in total).
+Every road has its own advantage, and a perfect run nets about the same time on all
+three, so the better driver (or quiz player) wins, not the road choice:
+
+- **HIZ**: the easiest and fastest road to drive. About 770 m per fork, 28 m wide, smooth,
+  fenced, with turbos. Its one hourglass per fork is far off the driving line (a detour).
+- **BİLGİ**: about 580 m per fork of winding, hilly road (20 m wide) with three **?** signs
+  per fork. The race never stops: after the finish you get one question per **?** collected
+  (correct −2 s, wrong +2 s), so your knowledge sets your time.
+- **CESARET**: the hardest road. About 535 m per fork, 14 m wide, tight bends, a kicker
+  ramp, boulders, and on fork 2 a sand canyon and mud. Its two hourglasses per fork sit in
+  risky spots (one in the air over the jump), and mistakes cost the most here.
 
 Two rivers cross the valley. Every road that crosses water gets a bridge with a wooden
 deck, solid railings and pillars; fall off and you are in the riverbed (R resets you).
 
-Measured with a keyboard-style bot (same road at both forks): Cesaret 88–90 s raw, about
-61–66 s net; Bilgi 85–87 s before the quiz (about 70 s even with every answer right); Hız
-79–85 s.
+`npm run check:balance` drives every road with a "pro" and an "average" bot. Per fork,
+on the safe line (no detours, quiz 60 % right): Hız 31.6 s, Cesaret 31–33 s, Bilgi about
+34 s. With every pickup taken or every answer right, each road comes down to about
+28–29.5 s per fork.
 
 Hourglasses take 3 s off your time, traffic signs give 100 points, and turbos add 2.5 s of
 extra drive. Rivals collect pickups and answer the quiz by the same rules. A race takes

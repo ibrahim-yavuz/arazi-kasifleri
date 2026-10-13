@@ -8,6 +8,7 @@ export type Action =
   | 'reset'
   | 'pause'
   | 'camera'
+  | 'map'
   | 'answerA'
   | 'answerB'
   | 'confirm'
@@ -23,6 +24,7 @@ export const KEY_BINDINGS: Record<Action, string[]> = {
   reset: ['KeyR'],
   pause: ['Escape', 'KeyP'],
   camera: ['KeyC'],
+  map: ['KeyM'],
   answerA: ['KeyA', 'Digit1', 'Numpad1'],
   answerB: ['KeyB', 'Digit2', 'Numpad2'],
   confirm: ['Enter', 'NumpadEnter'],

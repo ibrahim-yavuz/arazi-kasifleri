@@ -213,9 +213,18 @@ const FINAL: PathDef = {
 const cp = (path: string, at: number, margin = 10): CheckpointPlacement => ({ path, at, margin });
 
 const H = 'hourglass' as const;
+/**
+ * Pickups are the balance lever: a perfect run nets about the same on every road, so the
+ * better driver (or quiz player) wins, not the road choice.
+ * - Hız: fastest to drive; one hourglass per fork far off the line (costs a detour).
+ * - Bilgi: three "?" per fork; the end quiz is worth ±2 s per question.
+ * - Cesaret: slowest and hardest to drive; two hourglasses per fork in risky spots
+ *   (in the air over the kicker, on the bridge approach / sand canyon).
+ */
 const collectibles: CollectibleDef[] = [
   // Fork 1 ----------------------------------------------------------------------------
   { kind: 'turbo', path: 'hiz1', at: 150 },
+  { kind: H, path: 'hiz1', at: 380, offset: 10 },
   { kind: 'sign', path: 'hiz1', at: 450, offset: 5 },
   { kind: 'turbo', path: 'hiz1', at: 600 },
   { kind: 'question', path: 'bilgi1', at: 90 },
@@ -223,25 +232,19 @@ const collectibles: CollectibleDef[] = [
   { kind: 'question', path: 'bilgi1', at: 480, offset: 2 },
   { kind: 'sign', path: 'bilgi1', at: 520 },
   { kind: H, path: 'cesaret1', at: 74, height: 3 },
-  { kind: H, path: 'cesaret1', at: 160, offset: 1.5 },
-  { kind: H, path: 'cesaret1', at: 225 },
-  { kind: H, path: 'cesaret1', at: 345 },
-  { kind: H, path: 'cesaret1', at: 440 },
+  { kind: H, path: 'cesaret1', at: 228, offset: 3 },
   { kind: 'sign', path: 'cesaret1', at: 500 },
   // Fork 2 ----------------------------------------------------------------------------
-  { kind: H, path: 'cesaret2', at: 70 },
-  { kind: H, path: 'cesaret2', at: 170, offset: -1.5 },
-  { kind: H, path: 'cesaret2', at: 335 },
-  { kind: H, path: 'cesaret2', at: 400 },
+  { kind: H, path: 'cesaret2', at: 370, offset: -3 },
   { kind: H, path: 'cesaret2', at: 487, height: 3 },
-  { kind: 'turbo', path: 'cesaret2', at: 520 },
   { kind: 'sign', path: 'bilgi2', at: 200 },
   { kind: 'question', path: 'bilgi2', at: 120 },
-  { kind: 'question', path: 'bilgi2', at: 360, offset: -2 },
+  { kind: 'question', path: 'bilgi2', at: 360 },
+  { kind: 'question', path: 'bilgi2', at: 480, offset: -2 },
   { kind: 'turbo', path: 'hiz2', at: 150 },
   { kind: 'sign', path: 'hiz2', at: 300, offset: -5 },
+  { kind: H, path: 'hiz2', at: 380, offset: -10 },
   { kind: 'turbo', path: 'hiz2', at: 450 },
-  { kind: H, path: 'hiz2', at: 600, offset: 6 },
   // Finish straight.
   { kind: 'sign', path: 'final', at: 40 },
 ];

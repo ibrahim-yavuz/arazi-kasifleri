@@ -1,3 +1,4 @@
+import { Minimap } from './Minimap';
 import { formatRaceTime } from '../gameplay/TimerSystem';
 import { CONTROLS_HTML } from './MainMenu';
 import { el } from './dom';
@@ -115,6 +116,7 @@ export class RaceHUD implements Screen {
   private readonly countdownEl: HTMLElement;
   private readonly finishEl: HTMLElement;
   private readonly speedo: Speedometer;
+  readonly minimap: Minimap;
 
   constructor(parent: HTMLElement) {
     this.root = el('div', 'hud', undefined, parent);
@@ -126,10 +128,11 @@ export class RaceHUD implements Screen {
     this.score = el('div', 'hud-score', '', this.root);
     this.turbo = el('div', 'hud-turbo', '', this.root);
     this.speedo = new Speedometer(this.root);
+    this.minimap = new Minimap(this.root);
     this.toasts = el('div', 'hud-toast', undefined, this.root);
     this.countdownEl = el('div', 'countdown', '', this.root);
     this.finishEl = el('div', 'finish-banner', 'BİTİŞ!', this.root);
-    el('div', 'hud-help', 'R: geri koy · C: kamera · Esc: duraklat', this.root);
+    el('div', 'hud-help', 'R: geri koy · C: kamera · M: harita · Esc: duraklat', this.root);
     this.finishEl.hidden = true;
     this.countdownEl.hidden = true;
     this.hide();
@@ -195,9 +198,9 @@ export class TrackIntro implements Screen {
       el('h3', '', title, c);
       el('p', '', text, c);
     };
-    card('hiz', 'HIZ', 'En kolay yol: geniş, düzgün ve hızlı, ama uzun. Süre kazandıran kum saati çok az.');
-    card('bilgi', 'BİLGİ', 'Kıvrımlı, tepeli yol ve köprü. Yoldaki ? işaretlerini topla: bitişte her biri için bir soru (doğru −3 sn, yanlış +3 sn).');
-    card('cesaret', 'CESARET', 'En zorlu yol: dar ve virajlı, köprü, rampa, kayalar ve kum vadisi. Ama en kestirme ve kum saatlerinin çoğu burada: en iyi süre için!');
+    card('hiz', 'HIZ', 'Sürmesi en kolay ve en hızlı yol: geniş ve düzgün, turbolar var. Kum saati yoldan uzakta: almak için yoldan sap!');
+    card('bilgi', 'BİLGİ', 'Kıvrımlı, tepeli yol. Her ayrımda 3 tane ? var: bitişte her biri için bir soru (doğru −2 sn, yanlış +2 sn). Bilgin süreni belirler!');
+    card('cesaret', 'CESARET', 'En zorlu yol: dar ve virajlı, kayalar, rampa ve kum vadisi. Kum saatleri riskli yerlerde (rampanın üstünde havada!). Hata yapmazsan çok hızlı.');
     this.controls = el('div', '', undefined, panel);
     this.controls.innerHTML = `<h3 class="heading" style="font-size:24px">Kontroller</h3>${CONTROLS_HTML}`;
     const row = el('div', 'row', undefined, panel);

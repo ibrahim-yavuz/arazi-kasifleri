@@ -710,6 +710,45 @@ table.scores th {
   text-align: right;
 }
 
+/* ---------- Minimap -------------------------------------------------------------------- */
+.hud-minimap {
+  position: absolute;
+  right: 18px;
+  bottom: 38px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+}
+
+.hud-minimap canvas {
+  display: block;
+  width: 200px;
+  height: 200px;
+  border-radius: 16px;
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.45);
+}
+
+.hud-minimap.full canvas {
+  width: 150px;
+  height: min(500px, 62vh);
+}
+
+.minimap-legend {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  font-family: var(--font);
+  font-size: 13px;
+  text-shadow: 0 1px 2px #000;
+}
+
+.minimap-legend .key {
+  color: #fff;
+  opacity: 0.7;
+}
+
 /* ---------- Question panel (white header, two dark-blue rows, A/B badges) ----- */
 .question {
   position: absolute;
@@ -1187,4 +1226,15 @@ table.scores th {
   top: auto;
   bottom: 15%;
   font-size: 48px;
+}
+
+@media (max-width: 900px), (max-height: 560px) {
+  .hud-minimap canvas {
+    width: 140px;
+    height: 140px;
+  }
+  .hud-minimap.full canvas {
+    width: 110px;
+    height: min(360px, 55vh);
+  }
 }

@@ -156,6 +156,7 @@ export const CONTROLS_HTML = `
     <div>${keyCap('A')}${keyCap('B')} / ${keyCap('1')}${keyCap('2')}</div><div>Bitişteki soruları cevapla (A veya B şıkkı)</div>
     <div>${keyCap('R')}</div><div>Aracı son kontrol noktasına geri koy</div>
     <div>${keyCap('C')}</div><div>Kamera görünümünü değiştir</div>
+    <div>${keyCap('M')}</div><div>Haritayı değiştir (yakın / tüm parkur)</div>
     <div>${keyCap('Esc')}</div><div>Duraklat / menü</div>
     <div>${keyCap('Enter')}</div><div>Seçim tuşu</div>
   </div>`;
@@ -179,10 +180,10 @@ export class HowToPlay implements Screen {
        yollar birleştikten sonraki 2. ayrımda sıra tersinedir: <b>CESARET</b> (sol), <b>BİLGİ</b> (orta), <b>HIZ</b> (sağ).
        Her ayrımda bir yol seç, o yolun bütün kontrol noktalarından geç ve bitiş çizgisine ulaş.</p>
        <ul>
-         <li><b>Hız:</b> en kolay yol. Geniş ve düzgün ama uzun; süre kazandıran kum saati az.</li>
-         <li><b>Bilgi:</b> yoldaki <b>?</b> işaretlerini topla. Bitişte topladığın her işaret için bir soru sorulur: doğru −3 sn, yanlış +3 sn.</li>
-         <li><b>Cesaret:</b> en zorlu yol: dar, virajlı, köprülü ve rampalı. Ama en kestirme yol ve en çok kum saati burada: en iyi süre için!</li>
-         <li>Kum saati −3 sn, trafik işareti +100 puan, turbo kısa süreli ekstra güç verir.</li>
+         <li><b>Hız:</b> sürmesi en kolay ve en hızlı yol; turbolar var. Kum saati yolun kenarında, almak için yoldan sapmak gerekir.</li>
+         <li><b>Bilgi:</b> yoldaki <b>?</b> işaretlerini topla. Bitişte topladığın her işaret için bir soru sorulur: doğru −2 sn, yanlış +2 sn.</li>
+         <li><b>Cesaret:</b> en zorlu yol: dar, virajlı, kayalık ve rampalı. Kum saatleri riskli yerlerde; hatasız sürersen çok hızlı.</li>
+         <li>Her yolun kendi avantajı var: kazanan yolu değil, iyi süreni belirler. Kum saati −3 sn, trafik işareti +100 puan, turbo kısa süreli ekstra güç verir.</li>
        </ul>`,
     );
     const back = el('button', 'btn teal', '« Ana Menü', panel);

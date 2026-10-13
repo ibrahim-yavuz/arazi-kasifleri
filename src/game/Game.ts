@@ -35,6 +35,9 @@ import type { CarEntry } from './RaceSession';
 import { addScore, loadScores, loadSettings, saveSettings } from './Settings';
 import type { Settings } from './Settings';
 import { TestScene } from './TestScene';
+import type { MapCar, MapState } from '../ui/Minimap';
+
+const mapFwd = new Vector3();
 
 const ROUTE_TOAST: Record<string, string> = { hiz: 'HIZ yolu', bilgi: 'BİLGİ yolu', cesaret: 'CESARET yolu' };
 
@@ -212,6 +215,7 @@ export class Game {
     this.world = await World.create(testMode ? VALIDATION_TRACK : RACE_TRACK, this.physics, this.settings.quality, progress);
     this.renderer.add(this.world.group);
     this.renderer.add(this.dust.points);
+    this.hud.minimap.setTrack(this.world.track);
     this.followCam = new FollowCamera(this.renderer.camera, {
       heightAt: (x, z) => this.world.track.terrain.heightAt(x, z),
       occlusion: (from, to) => this.occlusion(from, to),
@@ -710,6 +714,7 @@ export class Game {
       if (st.consume('pause')) window.location.href = window.location.pathname;
     }
     if (WORLD_PHASES.has(this.phase) && this.followCam) {
+      if (st.consume('map')) this.hud.minimap.toggle();
       if (st.consume('camera')) {
         this.followCam.setMode(this.followCam.mode + 1);
         this.settings.cameraMode = this.followCam.mode;
@@ -807,6 +812,7 @@ export class Game {
         turbo: s.turboTime,
         progress: s.race.progressFraction(),
       });
+      this.hud.minimap.draw(this.mapState(s));
       if (this.countdownHideAt > 0 && this.time > this.countdownHideAt) {
         this.hud.countdown(null);
         this.countdownHideAt = 0;
@@ -868,6 +874,25 @@ export class Game {
       if (this.phase !== 'paused') this.audio.suspend(false);
     }
   };
+
+  /** Minimap input: every car's interpolated pose and the player's next gate. */
+  private mapState(s: RaceSession): MapState {
+    const cars: MapCar[] = [];
+    for (const c of s.cars) {
+      const pose = c.vehicle ?? c.remote;
+      if (!pose) continue;
+      mapFwd.set(0, 0, -1).applyQuaternion(pose.renderRotation);
+      cars.push({
+        x: pose.renderPosition.x,
+        z: pose.renderPosition.z,
+        heading: Math.atan2(-mapFwd.x, -mapFwd.z),
+        me: c.vehicle === s.player,
+        human: c.entry.kind === 'remote',
+      });
+    }
+    const g = s.race.nextGate;
+    return { cars, next: g ? { x: g.x, z: g.z } : null };
+  }
 
   /** Dev/test helpers (used from the browser console and automated checks). */
   get debugInfo() {
