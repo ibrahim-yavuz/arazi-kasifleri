@@ -1,0 +1,38 @@
+{
+  "name": "arazi-kasifleri",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Yar\u0131\u015f\u00e7\u0131 Arazi'den esinlenen taray\u0131c\u0131 tabanl\u0131 3D arazi yar\u0131\u015f\u0131",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "tsc --noEmit && tsc --noEmit -p server/tsconfig.json && vite build && npm run build:server",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "validate": "vite-node scripts/validatePhysics.ts",
+    "check:ai": "vite-node scripts/debugAI.ts",
+    "inspect:track": "vite-node scripts/inspectTrack.ts",
+    "check:keyboard": "vite-node scripts/keyboardDrive.ts",
+    "dev:server": "vite-node server/index.ts",
+    "build:server": "esbuild server/index.ts --bundle --platform=node --format=esm --target=node20 --packages=external --outfile=dist-server/index.mjs",
+    "start": "node dist-server/index.mjs",
+    "check:launch": "vite-node scripts/calibrateLaunch.ts",
+    "dev:client": "vite"
+  },
+  "dependencies": {
+    "@dimforge/rapier3d-compat": "^0.21.0",
+    "lil-gui": "^0.21.0",
+    "three": "^0.186.1",
+    "ws": "^8.22.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "@types/three": "^0.186.0",
+    "@types/ws": "^8.18.2",
+    "esbuild": "^0.28.2",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "vite-node": "^3.2.4",
+    "vitest": "^3.2.4"
+  }
+}

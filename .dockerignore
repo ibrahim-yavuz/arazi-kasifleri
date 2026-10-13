@@ -1,0 +1,6 @@
+node_modules
+dist
+dist-server
+validation-output
+.git
+*.log
